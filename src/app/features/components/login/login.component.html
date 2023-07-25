@@ -1,0 +1,11 @@
+
+<div class="login-body">
+    <h1>Login Page</h1>
+    <label for="email">Email</label>
+    <input class="input" type="text" pInputText [(ngModel)]="email" />
+    <label for="password">Password</label>
+    <p-password class="input" [(ngModel)]="password" [feedback]="false"></p-password>
+    <!-- <button (click)="submitForm()">Login</button> -->
+    <p-button label="Login" (click)="submitForm()"></p-button>
+
+</div>

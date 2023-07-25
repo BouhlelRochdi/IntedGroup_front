@@ -1,0 +1,35 @@
+<div class="list-body">
+    <p-treeTable [value]="demandes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nom & prenom</th>
+                <th>Adresse Email</th>
+                <th>Type Demande</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+            <tr [ttRow]="rowNode">
+                <td>
+                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    {{ rowData?.name }}
+                </td>
+                <td>{{ rowData?.email }}</td>
+                <td>{{ rowData?.type }}</td>
+                <td>{{ rowData?.description }}</td>
+                <td>
+                    <p-button label="Supprimer" styleClass="p-button-danger" (click)="deleteItem(rowData._id)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+        <!-- <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns; let i = index">
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                    {{ rowData[col.field] }}
+                </td>
+            </tr>
+        </ng-template> -->
+    </p-treeTable>
+</div>

@@ -1,0 +1,21 @@
+
+<div class="demande-body">
+    <h1>Create Demande</h1>
+    <form class="demande-body" [formGroup]="demandeForm">
+        <label for="email">FullName</label>
+        <input class="input" type="text" pInputText formControlName="name" />
+
+        <label for="email">Email</label>
+        <input class="input" type="text" pInputText formControlName="email" />
+
+        <label for="email">Type</label>
+        <!-- <input class="input" type="text" pInputText formControlName="type" /> -->
+        <p-dropdown formControlName="type" [options]="types" optionLabel="name"></p-dropdown>
+
+        <label for="password">Description</label>
+        <input class="input" type="text" pInputText formControlName="description" />
+
+        <p-button label="Login" (click)="createDemande()"></p-button>
+    </form>
+
+</div>
