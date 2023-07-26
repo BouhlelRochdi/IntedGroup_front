@@ -9,8 +9,8 @@ import { Roles } from '../constants/enums';
 @Injectable({
   providedIn: 'root'
 })
-export class UserGuard implements CanActivate {
-  _store = inject(Store<AppStateInterface>)
+export class NoAuthGuard implements CanActivate {
+  _store = inject(Store<AppStateInterface>);
   _router = inject(Router);
   isAuthorized: boolean = false;
 
@@ -21,7 +21,7 @@ export class UserGuard implements CanActivate {
   checkRole(): boolean {
     const currentUser = this._store.select(connectedUserSelector).subscribe(
       (user) => {
-        if (user && user.role == Roles.USER) {
+        if (!user) {
           this.isAuthorized = true;
         }
         else {
@@ -31,4 +31,5 @@ export class UserGuard implements CanActivate {
       })
     return this.isAuthorized;
   }
+  
 }

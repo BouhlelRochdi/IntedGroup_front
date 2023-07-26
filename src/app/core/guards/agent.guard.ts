@@ -14,12 +14,6 @@ export class AgentGuard implements CanActivate {
   _router = inject(Router);
   isAuthorized: boolean = false;
 
-  // canActivate(
-  //   route: ActivatedRouteSnapshot,
-  //   state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-  //   return true;
-  // }
-
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.checkRole();
   }

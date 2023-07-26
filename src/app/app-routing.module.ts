@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { UserGuard } from './core/guards/user.guard';
 import { AgentGuard } from './core/guards/agent.guard';
+import { NoAuthGuard } from './core/guards/no-auth.guard';
 
 const routes: Routes = [
   {
@@ -11,9 +12,11 @@ const routes: Routes = [
   {
     path: 'login', 
     loadComponent: () => import('./features/components/login/login.component').then(m => m.LoginComponent),
+    canActivate: [NoAuthGuard]
   },
   {
-    path: 'register', loadComponent: () => import('./features/components/register/register.component').then(m => m.RegisterComponent)
+    path: 'register', loadComponent: () => import('./features/components/register/register.component').then(m => m.RegisterComponent),
+    canActivate: [NoAuthGuard]
   },
   {
     path: 'home', loadComponent: () => import('./features/containers/home/home.component').then(m => m.HomeComponent),
@@ -25,17 +28,17 @@ const routes: Routes = [
       {
         path: 'user-interface', 
         loadComponent: () => import('./features/components/views/user/user.component').then(m => m.UserComponent),
-        // canActivate: [UserGuard],
+        canActivate: [UserGuard],
       },
       {
         path: 'create-demande', 
         loadComponent: () => import('./features/components/views/create-demande/create-demande.component').then(m => m.CreateDemandeComponent),
-        // canActivate: [UserGuard],
+        canActivate: [UserGuard],
       },
       {
         path: 'agent-interface', 
         loadComponent: () => import('./features/components/views/agent/agent.component').then(m => m.AgentComponent),
-        // canActivate: [AgentGuard],
+        canActivate: [AgentGuard],
       },
     ]
   },
