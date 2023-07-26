@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DemandeDto } from 'src/app/core/dtos/demande.dto';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { LoginDto } from 'src/app/core/dtos/login.dto';
-import { GET_DEMANDE_DETAILS_API, CREATE_DEMANDE_API, LOGIN_API, DELETE_DEMANDE, REGISTER_API, CURRENT_USER_API, UPDATE_DEMANDE_API } from 'src/app/core/constants/api.constants';
+import { GET_DEMANDE_DETAILS_API, CREATE_DEMANDE_API, LOGIN_API, DELETE_DEMANDE, REGISTER_API, CURRENT_USER_API, UPDATE_DEMANDE_API, GET_DEMANDE_BY_USER_API } from 'src/app/core/constants/api.constants';
 import { AccessTokenLocalStorage } from 'src/app/core/constants/enums';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -27,6 +27,10 @@ export class GlobalService {
 
     getDemandeDetails(): Observable<any> {
         return this._http.get<any>(`${GET_DEMANDE_DETAILS_API}`);
+    }
+
+    getDemandeByUser(): Observable<any> {
+        return this._http.get<any>(`${GET_DEMANDE_BY_USER_API}`);
     }
 
     login(loginDto: LoginDto): Observable<any> {

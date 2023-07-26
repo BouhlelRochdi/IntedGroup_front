@@ -98,7 +98,7 @@ export class UserEffects {
     this.action$.pipe(
       ofType(_userAction.getAllDemandeByUser),
       mergeMap(() =>
-        this._globalService.getDemandeDetails().pipe(
+        this._globalService.getDemandeByUser().pipe(
           switchMap((res: any) => {
             if (!res) {
               return of(_userAction.getAllDemandeByUserFailure({ error: 'error' }));

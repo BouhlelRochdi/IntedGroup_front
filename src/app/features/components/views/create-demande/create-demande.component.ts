@@ -12,6 +12,7 @@ import { TypesDemande } from 'src/app/core/constants/enums';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from 'src/app/store';
 import { createDemande } from 'src/app/store/userFlow/user.action';
+import { GLOBAL_SERVICE } from 'src/app/core/constants/tokens.constants';
 
 @Component({
   selector: 'app-create-demande',
@@ -21,7 +22,7 @@ import { createDemande } from 'src/app/store/userFlow/user.action';
   styleUrls: ['./create-demande.component.scss']
 })
 export class CreateDemandeComponent implements OnInit{
-  _globalService = inject(GlobalService);
+  _globalService = inject(GLOBAL_SERVICE);
   _route = inject(Router);
   _store = inject(Store<AppStateInterface>);
 
@@ -43,19 +44,6 @@ export class CreateDemandeComponent implements OnInit{
       return
     } else {
       this._store.dispatch(createDemande({ demande: this.demandeForm.value as DemandeDto }))
-      // this._globalService.createDemande(this.demandeForm.value as DemandeDto).subscribe(
-      //   {
-      //     next: (data: any) => {
-      //       console.log(data);
-      //       this._route.navigate(['/home/user-interface']);
-      //     },
-      //     error: (err: any) => {
-      //       console.error(err);
-      //     },
-      //     complete: () => {
-      //       console.log('complete');
-      //     }
-      //   })
     }
   }
 }
