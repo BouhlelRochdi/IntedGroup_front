@@ -5,19 +5,20 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { GlobalService } from '../../services/global.service';
 import { LoginDto } from 'src/app/core/dtos/login.dto';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
+import { GLOBAL_SERVICE } from 'src/app/core/constants/tokens.constants';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, PasswordModule, FormsModule, InputTextModule, ButtonModule],
+  imports: [CommonModule, PasswordModule, FormsModule, InputTextModule, ButtonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  _globalService = inject(GlobalService);
+  _globalService = inject(GLOBAL_SERVICE);
   _route = inject(Router);
 
   password: string = '';

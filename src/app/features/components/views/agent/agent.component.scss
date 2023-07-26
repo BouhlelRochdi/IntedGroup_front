@@ -1,0 +1,12 @@
+.agent-body{
+    display: flex;
+    justify-content: center;
+    // flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+    gap: 15px;
+}
+
+::ng-deep .p-table .p-datatable{
+    width: 100% !important;
+}

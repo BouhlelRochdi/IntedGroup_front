@@ -12,11 +12,21 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EFFECTS, REDUCERS } from './store';
 import { ServicesProviders } from './core/constants/service_providers.constants';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { jwtInterceptorProvider } from './core/interceptors/jwt.interceptor';
+import { DialogManagerComponent } from './features/containers/dialog-manager/dialog-manager.component';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogManagerComponent
   ],
   imports: [
+    CommonModule, DialogModule, ButtonModule, DropdownModule,
+
+
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -31,7 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     }),
 
   ],
-  providers: [...ServicesProviders],
+  providers: [...ServicesProviders, jwtInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

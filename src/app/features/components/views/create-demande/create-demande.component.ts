@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
 import { GlobalService } from 'src/app/features/services/global.service';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
-
-interface TypeOfDemande {
-  name: string;
-  value: string;
-}
+import { DemandeDto } from 'src/app/core/dtos/demande.dto';
+import { TypesDemande } from 'src/app/core/constants/enums';
+import { Store } from '@ngrx/store';
+import { AppStateInterface } from 'src/app/store';
+import { createDemande } from 'src/app/store/userFlow/user.action';
 
 @Component({
   selector: 'app-create-demande',
@@ -23,23 +23,16 @@ interface TypeOfDemande {
 export class CreateDemandeComponent implements OnInit{
   _globalService = inject(GlobalService);
   _route = inject(Router);
+  _store = inject(Store<AppStateInterface>);
+
   demandeForm!: FormGroup;
-  types: TypeOfDemande[] = [
-    {
-    name: 'Demande',
-    value: 'demande'
-  },
-  {
-    name: 'Other',
-    value: 'Other'
-  },
-]
+  types: string[] = [TypesDemande.DEMANDE, TypesDemande.OTHER]
 
   ngOnInit() {
     this.demandeForm = new FormGroup({
       name: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      type: new FormControl('', Validators.required),
+      type: new FormControl(this.types[0], Validators.required),
       description: new FormControl('', Validators.required)
     });
   }
@@ -49,14 +42,15 @@ export class CreateDemandeComponent implements OnInit{
       alert('invalid form')
       return
     } else {
-      this._globalService.createDemande(this.demandeForm.value).subscribe(
+      this._store.dispatch(createDemande({ demande: this.demandeForm.value as DemandeDto }))
+      this._globalService.createDemande(this.demandeForm.value as DemandeDto).subscribe(
         {
           next: (data: any) => {
             console.log(data);
             this._route.navigate(['/home/user-interface']);
           },
           error: (err: any) => {
-            console.log(err);
+            console.error(err);
           },
           complete: () => {
             console.log('complete');
@@ -64,5 +58,4 @@ export class CreateDemandeComponent implements OnInit{
         })
     }
   }
-
 }

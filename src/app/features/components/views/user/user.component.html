@@ -1,5 +1,8 @@
 <div class="list-body">
-    <p-treeTable [value]="demandes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <p-treeTable [value]="demandes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [paginator]="true"
+        [rows]="5" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[5, 10, 25]">
         <ng-template pTemplate="header">
             <tr>
                 <th>Nom & prenom</th>
@@ -19,17 +22,10 @@
                 <td>{{ rowData?.type }}</td>
                 <td>{{ rowData?.description }}</td>
                 <td>
-                    <p-button label="Supprimer" styleClass="p-button-danger" (click)="deleteItem(rowData._id)"></p-button>
+                    <p-button label="Supprimer" styleClass="p-button-danger"
+                        (click)="deleteItem(rowData._id)"></p-button>
                 </td>
             </tr>
         </ng-template>
-        <!-- <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
-                <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                    {{ rowData[col.field] }}
-                </td>
-            </tr>
-        </ng-template> -->
     </p-treeTable>
 </div>

@@ -21,31 +21,39 @@ export class UserComponent {
   demandes!: TreeNode[];
 
   ngOnInit() {
-    this._globalService.getDemandeDetails().subscribe(
-      {
-        next: (data: any) => {
-          console.log(data.data);
-          this.demandes = data.data.map((elem: any) => {
-            return {
-              label: elem.name,
-              data: elem,
-              children: [
-                {
-                  label: 'elem.agentResponse',
-                  data: 'elem.agentResponse',
-                }
-              ]
+    // this._globalService.getDemandeDetails().subscribe(
+    //   {
+    //     next: (res: any) => {
+    //       console.log('reeeeeeeeeees : ', res.data);
+    //       // this.demandes = res.data.map((elem: any) => {
+    //       //   return [
+    //       //     {
+    //       //       children : [
+    //       //         {
+    //       //           data: elem,
+    //       //           children: [],
+    //       //           parent: null
+    //       //         }
+    //       //       ],
+    //       //       data: elem,
+    //       //       parent: null
+    //       //     }
+    //       //   ]
+    //       // })
+    //     },
+    //     error: (err: any) => {
+    //       console.log(err);
+    //     },
+    //     complete: () => {
+    //       console.log('complete');
+    //     }
+    //   })
 
-            }
-          })
-        },
-        error: (err: any) => {
-          console.log(err);
-        },
-        complete: () => {
-          console.log('complete');
-        }
-      })
+    this._globalService.getDemandeDetails().toPromise().then((files) => {
+      console.log('files ==============> ', files)
+      this.demandes = files
+    });
+
   }
 
   deleteItem(id: string) {

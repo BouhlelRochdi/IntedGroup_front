@@ -1,0 +1,22 @@
+
+<div class="register-body">
+    <h1>Register</h1>
+    <form class="register-body" [formGroup]="registerForm">
+        <label for="email">FullName</label>
+        <input class="input" type="text" pInputText formControlName="name" />
+
+        <label for="email">Email</label>
+        <input class="input" type="text" pInputText formControlName="email" />
+
+        <label for="email">Role</label>
+        <p-dropdown formControlName="role" [options]="rolesType"></p-dropdown>
+
+        <label for="password">password</label>
+        <p-password class="input" formControlName="password" [feedback]="false"></p-password>
+
+        <p-button label="Register" (click)="signup()"></p-button>
+        <a [routerLink]="['/login']" >Login</a>
+
+    </form>
+
+</div>

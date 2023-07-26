@@ -1,8 +1,7 @@
 export interface DemandeDto {
-    id: string;
-    title: string;
-    description: string;
-    status: string;
-    createdAt: string;
-    updatedAt: string;
+    name?: string;
+    description?: string;
+    type?: string;
+    createdAt?: string;
+    updatedAt?: string;
 }

@@ -1,0 +1,31 @@
+<div class="agent-body">
+
+    <p-table [value]="demands" [tableStyle]="{ 'min-width': '70rem' }" [paginator]="true" [rows]="5"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[5, 10, 25]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Date creation</th>
+                <th>Full name</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th style="width: 5rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-demande>
+            <tr>
+                <td>{{ demande.id }}</td>
+                <td>{{ demande.name }}</td>
+                <td>{{ demande.email }}</td>
+                <td>{{ demande.type }}</td>
+                <td>{{ demande.description }}</td>
+                <td>
+                    <button type="button" pButton pRipple icon="pi pi-plus" (click)="openDialog()"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
