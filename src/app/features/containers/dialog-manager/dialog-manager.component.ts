@@ -18,6 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
 })
 export class DialogManagerComponent implements OnDestroy {
 
+
   commentDialog$$: Observable<boolean> = this.store.select(commentDialogSelector);
 
   observables: Observable<boolean>[] = [
@@ -39,19 +40,13 @@ export class DialogManagerComponent implements OnDestroy {
   }
 
   initialize() {
-    this.store.select(commentDialogSelector).subscribe(
-      (state: boolean) => {
-        console.log('commentDialog$$', state)
-        this.commentDialog = state;
-      }
-    )
-    // combineLatest(this.observables)
-    //   .pipe(takeUntil(this.Destroy))
-    //   .subscribe(([commentDialog$$]): boolean[] | void => {
-    //       console.log('commentDialog$$', commentDialog$$)
-    //       this.commentDialog = commentDialog$$;
-    //     }
-    //   );
+    combineLatest(this.observables)
+      .pipe(takeUntil(this.Destroy))
+      .subscribe(([commentDialog$$]): boolean[] | void => {
+          console.log('commentDialog$$', commentDialog$$)
+          this.commentDialog = commentDialog$$;
+        }
+      );
     console.log('commentDialog after affectation', this.commentDialog)
   }
   // open(dialogName: string) {

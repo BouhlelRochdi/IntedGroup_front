@@ -75,16 +75,15 @@ export class UserComponent {
   //       }
   //     })
   // }
-  products!: any[];
   demandes!: any[];
 
-    ngOnInit() {
-      this._globalService.getProductsWithOrdersSmall().then((data) => {
-        console.log('data =====> ', data)
-        this.products = data
-    })}
+  ngOnInit() {
+    this._globalService.getProductsWithOrdersSmall().then((data) => {
+      this.demandes = data
+    })
+  }
 
-      deleteItem(id: string) {
+  deleteItem(id: string) {
     console.log('id', id)
     this._globalService.deleteDemande(id).subscribe(
       {

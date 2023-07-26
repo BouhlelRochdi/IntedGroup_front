@@ -3,7 +3,7 @@ import { Actions } from '@ngrx/effects';
 
 
 @Injectable()
-export class ActionEffects {
+export class DialogEffects {
 
   constructor(private actions$: Actions) {}
 

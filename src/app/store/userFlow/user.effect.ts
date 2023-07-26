@@ -9,7 +9,7 @@ import { DemandeDto } from 'src/app/core/dtos/demande.dto';
 
 
 @Injectable()
-export class ActionEffects {
+export class UserEffects {
   action$ = inject(Actions);
   _globalService = inject(GLOBAL_SERVICE);
 

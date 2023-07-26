@@ -37,5 +37,14 @@ export const getAllDemandeByUserFailure = createAction('[User] Get All Demande B
   props<{ error: any }>()
 );
 
+// set selected demande
+export const setSelectedDemandeId = createAction('[User] Set Selected Demande id',
+  props<{ demandeId: string }>()
+);
+
+// create comment
+export const createComment = createAction('[User] Create Comment',
+  props<{ comment: string, demandeId: string }>());
+
 export const logout = createAction('[User] Logout');
 

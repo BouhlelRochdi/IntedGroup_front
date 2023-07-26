@@ -2,6 +2,6 @@
 <div class="dialog">
   <p-dialog header="Header" [showHeader]="false" *ngIf="commentDialog" [(visible)]="commentDialog" [modal]="true"
     [draggable]="false" [resizable]="false" (onHide)="close('commentDialog')">
-    <p class="m-0">commentDialog</p>
+    <app-comment-agent></app-comment-agent>
   </p-dialog>
 </div>

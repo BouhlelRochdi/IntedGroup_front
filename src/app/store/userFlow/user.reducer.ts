@@ -1,11 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { UserState } from './user.state';
-import { getAllDemandeByUser, logout, setConnectedUser, updateDemande } from './user.action';
+import { getAllDemandeByUser, logout, setConnectedUser, setSelectedDemandeId, updateDemande } from './user.action';
 
 
 export const initialState: UserState = {
   connectedUser: {},
   demande: {},
+  demandeId: '',
   alldemandes: []
 };
 
@@ -29,6 +30,10 @@ export const userReducer = createReducer(
     alldemandes: state.alldemandes
   })),
 
+  on(setSelectedDemandeId, (state, { demandeId }) => ({
+    ...state,
+    demandeId: demandeId
+  })),
 
   on(logout, (state) => {
     return initialState

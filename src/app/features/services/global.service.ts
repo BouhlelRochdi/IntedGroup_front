@@ -29,27 +29,30 @@ export class GlobalService {
             map((elem: any) => {
                 let obj = [
                     {
-                        children: [
+                        id: '1000',
+                        email: 'f230fh0g3bbbb',
+                        name: 'Bamboo Watchs',
+                        description: 'Product Descrifffffffffption',
+                        type: 'Accessories',
+                        orders: [
                             {
-                                data: elem.data[0],
-                                children: [],
-                                parent: null
-                            }
-                        ],
-                        data: elem.data[0],
-                        // elem.data.map((subElem: any) => {
-                        //   console.log('subElement ======> ', elem.data[0])
-                        //   return {
-                        //     email: subElem.email,
-                        //     name: subElem.name,
-                        //     type: subElem.type,
-                        //     description: subElem.description,
-                        //     _id: subElem._id
-                        //   }
-                        // }),
-                        parent: null
-                    }
-                ]
+                                agentResponse: 'agent response 1',
+                            },
+                        ]
+                    },
+                    {
+                        id: '1000',
+                        email: 'f230fh0g3aaaaaa',
+                        name: 'Bamboo Watch',
+                        description: 'Product Description',
+                        type: 'Accessoriess',
+                        orders: [
+                            {
+                                agentResponse: 'agent response 2',
+                            },
+                        ]
+                    },
+                ];
                 console.log('objjjjjjjjjjjjj: ', obj)
                 return Promise.resolve(obj)
             })
@@ -59,7 +62,7 @@ export class GlobalService {
     login(loginDto: LoginDto): Observable<any> {
         return this._http.post<any>(LOGIN_API, loginDto).pipe(
             map(res => {
-                // login successful if there's a jwt token in the response
+                console.log('res: ', res)
                 const tt: any = res.data;
                 if (tt && tt.token) {
                     this.successLogin(tt, tt.token);
@@ -116,36 +119,25 @@ export class GlobalService {
     getProductsWithOrdersData() {
         return [
             {
-                id: '1000',
+                _id: '1000',
                 email: 'f230fh0g3bbbb',
                 name: 'Bamboo Watchs',
                 description: 'Product Descrifffffffffption',
                 type: 'Accessories',
-                orders: [
-                    {
-                        review: '1000-0',
-                    },
-                ]
+                agentResponse: 'agent response 1',
             },
             {
-                id: '1000',
+                _id: '1000',
                 email: 'f230fh0g3aaaaaa',
                 name: 'Bamboo Watch',
                 description: 'Product Description',
                 type: 'Accessoriess',
-                orders: [
-                    {
-                        review: '1000-0',
-                    },
-                ]
+                agentResponse: 'agent response 2',
             },
-
         ];
     }
 
     getProductsWithOrdersSmall() {
         return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10));
     }
-
-
 }

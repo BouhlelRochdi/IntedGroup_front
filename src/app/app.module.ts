@@ -18,13 +18,14 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { CommentAgentComponent } from './features/components/views/comment-agent/comment-agent.component';
 @NgModule({
   declarations: [
     AppComponent,
     DialogManagerComponent
   ],
   imports: [
-    CommonModule, DialogModule, ButtonModule, DropdownModule,
+    CommonModule, DialogModule, ButtonModule, DropdownModule, CommentAgentComponent,
 
 
     BrowserModule,
