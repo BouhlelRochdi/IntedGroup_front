@@ -23,19 +23,12 @@ export class NavbarComponent implements OnInit {
   user = Roles.USER;
 
   constructor() {
-    // this._store.select(connectedUserSelector).subscribe(
-    //   (user) => {
-    //     if(!!user){
-    //       console.log('user : ', user)
-    //       this.currentUser = user;
-    //       this._store.dispatch(setIsAuthenticated({ isAuthenticated: true }))
-    //     }else{
-    //     console.log('user else : ', user)
-
-    //       this._store.dispatch(getCurrentUser())
-    //     }
-    //   }
-    // )
+    this._store.select(connectedUserSelector).subscribe(
+      (user) => {
+        console.log('user : ', user)
+        this.currentUser = user
+      }
+    )
   }
 
   ngOnInit(): void {

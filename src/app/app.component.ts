@@ -1,4 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, ViewEncapsulation, inject } from '@angular/core';
+import { GLOBAL_SERVICE } from './core/constants/tokens.constants';
+import { GlobalService } from './features/services/global.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +10,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'intedGroup';
+
+  constructor(@Inject(GLOBAL_SERVICE) private _globalService: GlobalService) {
+  }
 }

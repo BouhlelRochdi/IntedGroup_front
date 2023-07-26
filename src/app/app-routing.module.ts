@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'home', loadComponent: () => import('./features/containers/home/home.component').then(m => m.HomeComponent),
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '', pathMatch:'full', redirectTo: 'user-interface'
