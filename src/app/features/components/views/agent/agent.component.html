@@ -1,6 +1,6 @@
 <div class="agent-body">
     <div class="card">
-        <p-table [value]="demands" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }" [paginator]="true" [rows]="5"
+        <p-table [value]="demandes" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }" [paginator]="true" [rows]="5"
             [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [rowsPerPageOptions]="[5, 10, 25]">
@@ -29,7 +29,7 @@
                     <td>{{ demande.description }}</td>
                     <td>
                         <button type="button" pButton pRipple icon="pi pi-plus"
-                            (click)="openDialog(demande.id)"></button>
+                            (click)="openDialog(demande._id)"></button>
                     </td>
                 </tr>
             </ng-template>

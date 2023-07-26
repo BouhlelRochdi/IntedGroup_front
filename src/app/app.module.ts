@@ -19,6 +19,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { CommentAgentComponent } from './features/components/views/comment-agent/comment-agent.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { CommentAgentComponent } from './features/components/views/comment-agent
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    RouterModule,
     StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot(REDUCERS),
     EffectsModule.forRoot(EFFECTS),

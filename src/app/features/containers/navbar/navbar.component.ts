@@ -6,6 +6,7 @@ import { AppStateInterface } from 'src/app/store';
 import { LoginDto } from 'src/app/core/dtos/login.dto';
 import { connectedUserSelector } from 'src/app/store/userFlow/user.selector';
 import { Roles } from 'src/app/core/constants/enums';
+import { getCurrentUser, setIsAuthenticated } from 'src/app/store/userFlow/user.action';
 
 @Component({
   selector: 'app-navbar',
@@ -22,11 +23,19 @@ export class NavbarComponent implements OnInit {
   user = Roles.USER;
 
   constructor() {
-    this._store.select(connectedUserSelector).subscribe(
-      (user) => {
-        this.currentUser = user;
-      }
-    )
+    // this._store.select(connectedUserSelector).subscribe(
+    //   (user) => {
+    //     if(!!user){
+    //       console.log('user : ', user)
+    //       this.currentUser = user;
+    //       this._store.dispatch(setIsAuthenticated({ isAuthenticated: true }))
+    //     }else{
+    //     console.log('user else : ', user)
+
+    //       this._store.dispatch(getCurrentUser())
+    //     }
+    //   }
+    // )
   }
 
   ngOnInit(): void {

@@ -44,7 +44,7 @@ export class CommentAgentComponent {
   confirmValue() {
     if(this.comment.length > 0) {
       this.visible = false;
-      this._store.dispatch(updateDemande({ demande: { _id: this.selectedId, agentResponse: this.comment } }));
+      this._store.dispatch(updateDemande( {_id: this.selectedId, agentResponse: this.comment} ));
       this._store.dispatch(CLOSE({ dialogName: 'commentDialog' }));
     }else{
       alert('Please enter a comment to submit')

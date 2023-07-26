@@ -6,6 +6,11 @@ import { GlobalService } from 'src/app/features/services/global.service';
 import { ButtonModule } from 'primeng/button';
 import { TreeNode } from 'primeng/api';
 import { TableModule } from 'primeng/table';
+import { GLOBAL_SERVICE } from 'src/app/core/constants/tokens.constants';
+import { Store } from '@ngrx/store';
+import { AppStateInterface } from 'src/app/store';
+import { deleteDemande, getAllDemandeByUser } from 'src/app/store/userFlow/user.action';
+import { alldemandesSelector } from 'src/app/store/userFlow/user.selector';
 
 
 
@@ -17,88 +22,24 @@ import { TableModule } from 'primeng/table';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-  _globalService = inject(GlobalService);
-  // _route = inject(Router);
+  _globalService = inject(GLOBAL_SERVICE);
+  _store = inject(Store<AppStateInterface>);
+  _route = inject(Router);
 
-  // demandes!: TreeNode[];
-
-  // ngOnInit() {
-  //   // this._globalService.getDemandeDetails().subscribe(
-  //   //   {
-  //   //     next: (res: any) => {
-  //   //       console.log('reeeeeeeeeees : ', res.data);
-  //   //       // this.demandes = res.data.map((elem: any) => {
-  //   //       //   return [
-  //   //       //     {
-  //   //       //       children : [
-  //   //       //         {
-  //   //       //           data: elem,
-  //   //       //           children: [],
-  //   //       //           parent: null
-  //   //       //         }
-  //   //       //       ],
-  //   //       //       data: elem,
-  //   //       //       parent: null
-  //   //       //     }
-  //   //       //   ]
-  //   //       // })
-  //   //     },
-  //   //     error: (err: any) => {
-  //   //       console.log(err);
-  //   //     },
-  //   //     complete: () => {
-  //   //       console.log('complete');
-  //   //     }
-  //   //   })
-
-  //   this._globalService.getDemandeDetails().toPromise().then((files) => {
-  //     console.log('files ==============> ', files)
-  //     this.demandes = files
-  //   });
-
-  // }
-
-  // deleteItem(id: string) {
-  //   console.log('id', id)
-  //   this._globalService.deleteDemande(id).subscribe(
-  //     {
-  //       next: (data: any) => {
-  //         console.log(data);
-  //         this.demandes = this.demandes.filter((elem: any) => elem.data._id !== id);
-  //         // this._route.navigate(['/home/user-interface']);
-  //       },
-  //       error: (err: any) => {
-  //         console.log(err);
-  //       },
-  //       complete: () => {
-  //         console.log('complete');
-  //       }
-  //     })
-  // }
-  demandes!: any[];
+  demandes: any[] = [];
 
   ngOnInit() {
-    this._globalService.getProductsWithOrdersSmall().then((data) => {
-      this.demandes = data
-    })
+    this._store.dispatch(getAllDemandeByUser())
+    this._store.select(alldemandesSelector).subscribe(
+      (demandes) => {
+        console.log('demandes : ', demandes)
+        this.demandes = demandes;
+      }
+    )
   }
 
   deleteItem(id: string) {
-    console.log('id', id)
-    this._globalService.deleteDemande(id).subscribe(
-      {
-        next: (data: any) => {
-          console.log(data);
-          this.demandes = this.demandes.filter((elem: any) => elem.data._id !== id);
-          // this._route.navigate(['/home/user-interface']);
-        },
-        error: (err: any) => {
-          console.log(err);
-        },
-        complete: () => {
-          console.log('complete');
-        }
-      })
+    this._store.dispatch(deleteDemande({ demandeId: id }))
   }
 
 }

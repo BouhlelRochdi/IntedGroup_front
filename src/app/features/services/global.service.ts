@@ -1,14 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { DemandeDto } from 'src/app/core/dtos/demande.dto';
-import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { LoginDto } from 'src/app/core/dtos/login.dto';
-import { GET_DEMANDE_DETAILS_API, CREATE_DEMANDE_API, LOGIN_API, DELETE_DEMANDE, REGISTER_API } from 'src/app/core/constants/api.constants';
+import { GET_DEMANDE_DETAILS_API, CREATE_DEMANDE_API, LOGIN_API, DELETE_DEMANDE, REGISTER_API, CURRENT_USER_API, UPDATE_DEMANDE_API } from 'src/app/core/constants/api.constants';
 import { AccessTokenLocalStorage } from 'src/app/core/constants/enums';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppStateInterface } from 'src/app/store';
-import { setConnectedUser } from 'src/app/store/userFlow/user.action';
+import { getCurrentUser, setConnectedUser } from 'src/app/store/userFlow/user.action';
 
 @Injectable({
     providedIn: 'root'
@@ -22,41 +22,11 @@ export class GlobalService {
     constructor() {
         const token = localStorage.getItem(AccessTokenLocalStorage)
         this.currentAccessTokenSubject.next(token as string)
+        this._store.dispatch(getCurrentUser())
     }
 
     getDemandeDetails(): Observable<any> {
-        return this._http.get<any>(`${GET_DEMANDE_DETAILS_API}`).pipe(
-            map((elem: any) => {
-                let obj = [
-                    {
-                        id: '1000',
-                        email: 'f230fh0g3bbbb',
-                        name: 'Bamboo Watchs',
-                        description: 'Product Descrifffffffffption',
-                        type: 'Accessories',
-                        orders: [
-                            {
-                                agentResponse: 'agent response 1',
-                            },
-                        ]
-                    },
-                    {
-                        id: '1000',
-                        email: 'f230fh0g3aaaaaa',
-                        name: 'Bamboo Watch',
-                        description: 'Product Description',
-                        type: 'Accessoriess',
-                        orders: [
-                            {
-                                agentResponse: 'agent response 2',
-                            },
-                        ]
-                    },
-                ];
-                console.log('objjjjjjjjjjjjj: ', obj)
-                return Promise.resolve(obj)
-            })
-        )
+        return this._http.get<any>(`${GET_DEMANDE_DETAILS_API}`);
     }
 
     login(loginDto: LoginDto): Observable<any> {
@@ -71,7 +41,6 @@ export class GlobalService {
                     return null;
                 }
             }),
-            // catchError((error) => this.handleError(error))
         );
     }
 
@@ -91,6 +60,10 @@ export class GlobalService {
         return this._http.post<any>(REGISTER_API, loginDto);
     }
 
+    getCurrentUser(): Observable<any> {
+        return this._http.get<any>(`${CURRENT_USER_API}`);
+    }
+
     deleteDemande(id: string): Observable<any> {
         return this._http.delete<any>(`${DELETE_DEMANDE}/${id}`);
     }
@@ -99,8 +72,8 @@ export class GlobalService {
         return this._http.post<DemandeDto>(CREATE_DEMANDE_API, demandeDto);
     }
 
-    updateDemande(demandeDto: DemandeDto): Observable<DemandeDto> {
-        return this._http.post<DemandeDto>(CREATE_DEMANDE_API, demandeDto);
+    updateDemande(_id: string, demandeDto: string): Observable<DemandeDto> {
+        return this._http.put<DemandeDto>(UPDATE_DEMANDE_API + '/' + _id, { agentResponse: demandeDto });
     }
 
 
@@ -115,29 +88,4 @@ export class GlobalService {
     //   return throwError(
     //     'Something bad happened; please try again later.');
     // };
-
-    getProductsWithOrdersData() {
-        return [
-            {
-                _id: '1000',
-                email: 'f230fh0g3bbbb',
-                name: 'Bamboo Watchs',
-                description: 'Product Descrifffffffffption',
-                type: 'Accessories',
-                agentResponse: 'agent response 1',
-            },
-            {
-                _id: '1000',
-                email: 'f230fh0g3aaaaaa',
-                name: 'Bamboo Watch',
-                description: 'Product Description',
-                type: 'Accessoriess',
-                agentResponse: 'agent response 2',
-            },
-        ];
-    }
-
-    getProductsWithOrdersSmall() {
-        return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10));
-    }
 }
