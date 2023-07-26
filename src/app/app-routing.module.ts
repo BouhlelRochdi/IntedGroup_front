@@ -28,17 +28,17 @@ const routes: Routes = [
       {
         path: 'user-interface', 
         loadComponent: () => import('./features/components/views/user/user.component').then(m => m.UserComponent),
-        canActivate: [UserGuard],
+        // canActivate: [UserGuard],
       },
       {
         path: 'create-demande', 
         loadComponent: () => import('./features/components/views/create-demande/create-demande.component').then(m => m.CreateDemandeComponent),
-        canActivate: [UserGuard],
+        // canActivate: [UserGuard],
       },
       {
         path: 'agent-interface', 
         loadComponent: () => import('./features/components/views/agent/agent.component').then(m => m.AgentComponent),
-        canActivate: [AgentGuard],
+        // canActivate: [AgentGuard],
       },
     ]
   },

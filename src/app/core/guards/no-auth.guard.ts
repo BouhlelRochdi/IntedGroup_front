@@ -14,22 +14,30 @@ export class NoAuthGuard implements CanActivate {
   _router = inject(Router);
   isAuthorized: boolean = false;
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.checkRole();
-  }
-
-  checkRole(): boolean {
-    const currentUser = this._store.select(connectedUserSelector).subscribe(
+  constructor() {
+    this._store.select(connectedUserSelector).subscribe(
       (user) => {
         if (!user) {
           this.isAuthorized = true;
         }
         else {
-          this._router.navigate(['/home']);
           this.isAuthorized = false;
         }
       })
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.isAuthorized) {
+      this._router.navigate(['/home']);
+      return false
+    }
+    else {
+      return true;
+    }
+  }
+
+  checkAuthentication(): boolean {
     return this.isAuthorized;
   }
-  
+
 }
