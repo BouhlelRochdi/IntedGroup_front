@@ -18,11 +18,32 @@ export class GlobalService {
     _router = inject(Router);
     _store = inject(Store<AppStateInterface>)
     currentAccessTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>('')
+    darkMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
     constructor() {
         const token = localStorage.getItem(AccessTokenLocalStorage)
         this.currentAccessTokenSubject.next(token as string)
         this._store.dispatch(getCurrentUser())
+        console.log('serviceeeeeeeeeeeeee')
+        localStorage.getItem('isDarkMode') ? this.darkMode$.next(JSON.parse(localStorage.getItem('isDarkMode') as string)) : this.darkMode$.next(false);
+        this.changeTheme();
+    }
+
+    setIsDarkMode(isDarkMode: boolean) {
+        this.darkMode$.next(isDarkMode)
+        localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode))
+    }
+
+    changeTheme() {
+        this.darkMode$.subscribe(elem => {
+            
+        console.log('dark mode : ', this.darkMode$.value)
+            if (!elem) {
+                document.body.classList.add('dark')
+            }else{
+                document.body.classList.remove('dark')
+            }
+        })
     }
 
     getDemandeDetails(): Observable<any> {

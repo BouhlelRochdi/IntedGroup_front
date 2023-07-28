@@ -6,6 +6,7 @@
     />
   <span class="menu-items">Welcome</span>
   <div class="spacer"></div>
+  <a class="menu-items" (click)="toggleTheme()">Dark/light</a>
   <div *ngIf="currentUser?.role == user">
   <a [routerLink]="['/home/create-demande']" routerLinkActive="router-link-active" class="menu-items">Create</a>
   <a [routerLink]="['/home/user-interface']" routerLinkActive="router-link-active" class="menu-items">List</a>

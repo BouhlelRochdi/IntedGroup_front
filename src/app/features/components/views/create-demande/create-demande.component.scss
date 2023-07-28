@@ -6,3 +6,16 @@
     margin-top: 60px;
     gap: 15px;
 }
+
+
+::ng-deep {
+    .p-button {
+        background-color: var(--buttonBgColor);
+        color: var(--buttonTextColor);
+    }
+    
+     .p-button-label{
+        color: var(--buttonTextColor);
+    }
+    
+}
